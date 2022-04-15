@@ -14,177 +14,29 @@ import {
 } from "react-icons/hi";
 
 export interface LayoutProps {
+    title: string;
     children: React.ReactNode;
 }
-export default function Layout({ children }: LayoutProps) {
+export default function Layout({ children, title }: LayoutProps) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     return (
         <>
             <div className="flex overflow-hidden h-screen">
-                <aside className="flex-row">
-                    <div className="h-12 bg-red-600">Automation Demo</div>
-                    <nav className="bg-blue-400 flex-1 h-full">
-                        <ul>
-                            <li>
-                                <a href="#">Resource group</a>
-                            </li>
-                            <li>
-                                <a href="#">Blob storage</a>
-                            </li>
-                        </ul>
+                <aside className="flex-row w-48">
+                    <div className="h-16 bg-red-600">Automation Demo</div>
+                    <nav className="bg-blue-400 flex-1 h-full space-y-2 pt-2 px-2">
+                        <a className="flex py-2 px-4 rounded-md hover:bg-blue-700" href="#">Resource group</a>
+                        <a className="flex py-2 px-4 rounded-md hover:bg-blue-700" href="#">Blob storage</a>
                     </nav>
                 </aside>
-                <main className="flex-row">
-                    <header className="h-12 bg-red-600 z-50">
-                        <h1>Resource group</h1>
+                <main className="flex-row flex-1">
+                    <header className="h-16 bg-red-600 z-50 p-4">
+                        <h1 className="font-bold text-2xl">{title}</h1>
                     </header>
                     <div className="flex-1 h-screen overflow-hidden -mt-12 pt-12">
                         <div className="overflow-y-auto h-full bg-green-400">
-                            <div>
-                                first row this is the text this is the text this
-                                is the text this is the text this is the text
-                                this is the text this is the text this is the
-                                text this is the text this is the text this is
-                                the text this is the text this is the text this
-                                is the text
-                            </div>
-                            <div>
-                                this is the text this is the text this is the
-                                text this is the text this is the text this is
-                                the text this is the text this is the text this
-                                is the text this is the text this is the text
-                                this is the text this is the text this is the
-                                text this is the text
-                            </div>
-                            <div>
-                                this is the text this is the text this is the
-                                text this is the text this is the text this is
-                                the text this is the text this is the text this
-                                is the text this is the text this is the text
-                                this is the text this is the text this is the
-                                text this is the text
-                            </div>
-                            <div>
-                                this is the text this is the text this is the
-                                text this is the text this is the text this is
-                                the text this is the text this is the text this
-                                is the text this is the text this is the text
-                                this is the text this is the text this is the
-                                text this is the text
-                            </div>
-                            <div>
-                                this is the text this is the text this is the
-                                text this is the text this is the text this is
-                                the text this is the text this is the text this
-                                is the text this is the text this is the text
-                                this is the text this is the text this is the
-                                text this is the text
-                            </div>
-                            <div>
-                                this is the text this is the text this is the
-                                text this is the text this is the text this is
-                                the text this is the text this is the text this
-                                is the text this is the text this is the text
-                                this is the text this is the text this is the
-                                text this is the text
-                            </div>
-                            <div>
-                                this is the text this is the text this is the
-                                text this is the text this is the text this is
-                                the text this is the text this is the text this
-                                is the text this is the text this is the text
-                                this is the text this is the text this is the
-                                text this is the text
-                            </div>
-                            <div>
-                                this is the text this is the text this is the
-                                text this is the text this is the text this is
-                                the text this is the text this is the text this
-                                is the text this is the text this is the text
-                                this is the text this is the text this is the
-                                text this is the text
-                            </div>
-                            <div>
-                                this is the text this is the text this is the
-                                text this is the text this is the text this is
-                                the text this is the text this is the text this
-                                is the text this is the text this is the text
-                                this is the text this is the text this is the
-                                text this is the text
-                            </div>
-                            <div>
-                                this is the text this is the text this is the
-                                text this is the text this is the text this is
-                                the text this is the text this is the text this
-                                is the text this is the text this is the text
-                                this is the text this is the text this is the
-                                text this is the text
-                            </div>
-                            <div>
-                                this is the text this is the text this is the
-                                text this is the text this is the text this is
-                                the text this is the text this is the text this
-                                is the text this is the text this is the text
-                                this is the text this is the text this is the
-                                text this is the text
-                            </div>
-                            <div>
-                                this is the text this is the text this is the
-                                text this is the text this is the text this is
-                                the text this is the text this is the text this
-                                is the text this is the text this is the text
-                                this is the text this is the text this is the
-                                text this is the text
-                            </div>
-                            <div>
-                                this is the text this is the text this is the
-                                text this is the text this is the text this is
-                                the text this is the text this is the text this
-                                is the text this is the text this is the text
-                                this is the text this is the text this is the
-                                text this is the text
-                            </div>
-                            <div>
-                                this is the text this is the text this is the
-                                text this is the text this is the text this is
-                                the text this is the text this is the text this
-                                is the text this is the text this is the text
-                                this is the text this is the text this is the
-                                text this is the text
-                            </div>
-                            <div>
-                                this is the text this is the text this is the
-                                text this is the text this is the text this is
-                                the text this is the text this is the text this
-                                is the text this is the text this is the text
-                                this is the text this is the text this is the
-                                text this is the text
-                            </div>
-                            <div>
-                                this is the text this is the text this is the
-                                text this is the text this is the text this is
-                                the text this is the text this is the text this
-                                is the text this is the text this is the text
-                                this is the text this is the text this is the
-                                text this is the text
-                            </div>
-                            <div>
-                                this is the text this is the text this is the
-                                text this is the text this is the text this is
-                                the text this is the text this is the text this
-                                is the text this is the text this is the text
-                                this is the text this is the text this is the
-                                text this is the text
-                            </div>
-                            <div>
-                                this is the text this is the text this is the
-                                text this is the text this is the text this is
-                                the text this is the text this is the text this
-                                is the text this is the text this is the text
-                                this is the text this is the text this is the
-                                text last row
-                            </div>
+                            {children}
                         </div>
                     </div>
                 </main>

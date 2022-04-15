@@ -6,7 +6,7 @@ import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
     return (
-        <Layout>
+        <Layout title="Hello">
             <div>
                 <h1 className="text-3xl font-bold underline">Hello world!</h1>
             </div>
