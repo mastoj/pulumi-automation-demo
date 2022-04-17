@@ -98,7 +98,7 @@ export default function Layout({ children }: LayoutProps) {
                     </header>
                     <div className="flex-1 h-screen overflow-hidden -mt-12 pt-12">
                         <div className="overflow-y-auto h-full bg-gray-200 p-4">
-                            {children}YOLO
+                            {children}
                         </div>
                     </div>
                 </main>

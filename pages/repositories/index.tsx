@@ -1,10 +1,16 @@
 import { NextPage } from "next";
-import Layout from "../../components/Layout";
+import { ResourcePage } from "../../modules/common/ResourcePage";
+import { NewRepositoryForm } from "../../modules/repositories/NewRepositoryForm";
+import { ResourceGroupController, ResourceGroupProvider } from "../../modules/resource-groups/ResourceGroupController";
 
-const Index: NextPage = () => (
-    <div>
-        <h1 className="text-3xl font-bold underline">Repositories</h1>
-    </div>
-)
+const Index: NextPage = () => {
+    return (
+        <ResourceGroupProvider>
+            <ResourcePage 
+                typeNamePlural="repositories" 
+                createNewResource={<NewRepositoryForm />}                />
+        </ResourceGroupProvider>
+    );
+};
 
 export default Index;
