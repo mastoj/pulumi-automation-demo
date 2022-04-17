@@ -1,16 +1,19 @@
 import { useContext } from "react";
+import { ResourceSummary } from "../resource-groups/types";
 import { List } from "./List";
 import { ResourceService } from "./ResourceService";
 
 export interface ResourcePageProps {
     typeNamePlural: string;
     createNewResource: React.ReactNode;
+    resources: ResourceSummary[]
 }
-export const ResourcePage = ({ typeNamePlural, createNewResource }: ResourcePageProps) => {
+export const ResourcePage = ({ typeNamePlural, createNewResource, resources }: ResourcePageProps) => {
     const resourceService = useContext(ResourceService);
     const handleDelete = async (stackName: string) => {
         await resourceService.deleteResource(stackName);
     };
+    console.log("ResourcePage: ", { typeNamePlural, createNewResource, resources });
     return(
         <div className="flex flex-col gap-2">
             <div className="flex flex-col">
@@ -21,7 +24,7 @@ export const ResourcePage = ({ typeNamePlural, createNewResource }: ResourcePage
                 <h2 className="text-xl font-bold">Existing {typeNamePlural}</h2>
                 <div className="flex flex-col">
                     <List
-                        items={[{ stackName: "tomas", resourceCount: 100 }]}
+                        items={resources}
                         onDelete={handleDelete}
                     />
                 </div>

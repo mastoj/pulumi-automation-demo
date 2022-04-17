@@ -1,6 +1,7 @@
 import React from "react";
 import { ResourceService } from "../common/ResourceService";
 import { ResourceGroupSpecification } from "./types";
+import axios from "axios";
 
 export interface ResourceGroupService extends ResourceService {
     saveResourceGroup: (resourceGroup: ResourceGroupSpecification) => Promise<void>;
@@ -8,13 +9,8 @@ export interface ResourceGroupService extends ResourceService {
 
 const controller: ResourceGroupService = {
     getResources: async () => {
-        return [
-            {
-                name: "tomas",
-                stackName: "tomas",
-                resourceCount: 100,
-            },
-        ];
+        const response = await axios.get("/api/resource-groups");
+        return response.data;
     },
     saveResourceGroup: async (resourceGroup: ResourceGroupSpecification) => {
         console.log("Saving: ", resourceGroup);

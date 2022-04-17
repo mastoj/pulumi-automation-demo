@@ -1,12 +1,8 @@
 import { HiTrash } from "react-icons/hi";
-
-export interface ListItem {
-    stackName: string;
-    resourceCount: number;
-}
+import { ResourceSummary } from "../resource-groups/types";
 
 export interface ListProps {
-    items: ListItem[];
+    items: ResourceSummary[];
     onDelete: (stackName: string) => void;
 }
 

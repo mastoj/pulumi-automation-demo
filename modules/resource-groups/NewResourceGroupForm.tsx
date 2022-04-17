@@ -4,10 +4,11 @@ import { ResourceGroupService } from "./ResourceGroupService";
 
 export const NewResourceGroupForm = () => {
     const [value, setValue] = useState("start value");
-    const resourceGroupController = useContext(ResourceGroupController);
+    const resourceGroupService = useContext(ResourceGroupService);
+
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        resourceGroupController.saveResourceGroup({
+        resourceGroupService.saveResourceGroup({
             name: value,
             stackName: value,
         });
