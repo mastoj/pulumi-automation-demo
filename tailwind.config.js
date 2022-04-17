@@ -2,6 +2,7 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 const colors = require('tailwindcss/colors')
 
 module.exports = {
+    darkMode: 'class',
     content: [
         "./pages/**/*.{js,ts,jsx,tsx}",
         "./components/**/*.{js,ts,jsx,tsx}",
@@ -36,7 +37,11 @@ module.exports = {
                     DEFAULT: colors.gray["300"],
                     neutral: colors.gray["300"],
                     dark: colors.gray["500"],
-                    light: colors.gray["100"]
+                    light: colors.gray["100"],
+
+                    'neutral-inverted': colors.gray["800"],
+                    'dark-inverted': colors.gray["900"],
+                    'light-inverted': colors.gray["700"],
                 },
                 warning: {
                     DEFAULT: colors.red["500"],

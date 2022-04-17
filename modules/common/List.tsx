@@ -13,10 +13,11 @@ export interface ListProps {
 export const List = ({ items, onDelete }: ListProps) => {
     return (
         <div className="bg-white shadow overflow-hidden sm:rounded-md">
-            <ul role="list" className="divide-y divide-secondary">
+            <ul role="list" className="divide-y divide-secondary dark:divide-secondary-neutral-inverted">
                 {items.map((application: any) => (
                     <li key={application.stackName}>
-                        <div className="block hover:bg-secondary-light">
+                        {/* <div className="block hover:bg-secondary-light dark:hover:bg-secondary-light-inverted"> */}
+                        <div className="block hover:bg-secondary-light dark:hover:bg-red">
                             <div className="flex items-center px-4 py-4 sm:px-6">
                                 <div className="min-w-0 flex-1 flex items-center">
                                     <div className="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
@@ -24,7 +25,7 @@ export const List = ({ items, onDelete }: ListProps) => {
                                             <p className="text-sm font-medium text-brand truncate">
                                                 {application.stackName}
                                             </p>
-                                            <p className="mt-2 flex items-center text-sm text-secondary-dark">
+                                            <p className="mt-2 flex items-center text-sm text-secondary-dark dark:text-secondary-dark-inverted">
                                                 <span className="truncate">
                                                     Resource count:{" "}
                                                     {application.resourceCount}

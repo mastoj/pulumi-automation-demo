@@ -27,17 +27,6 @@ export const NewResourceGroupForm = () => {
                 name="resourceGroup"
                 placeholder="pulumi-up-demo"
             />
-            <Input
-                type="text"
-                onChange={(e) => {
-                    return setValue(e.target.value);
-                }}
-                value={value}
-                label="Resource group name"
-                id="resourceGroup"
-                name="resourceGroup"
-                placeholder="pulumi-up-demo"
-            />
             <div className="flex-1 flex justify-end items-end">
                 <button className="bg-green-500 rounded-md px-4 py-2 h-9">
                     Create

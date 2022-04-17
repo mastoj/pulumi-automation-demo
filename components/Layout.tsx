@@ -4,6 +4,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { AiFillAppstore, AiFillGithub } from "react-icons/ai";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useTheme } from "next-themes";
 
 interface NavItemsProps {
     route: string;
@@ -62,6 +63,7 @@ export interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const router = useRouter();
+    const { theme, setTheme } = useTheme();
 
     return (
         <>
@@ -80,23 +82,47 @@ export default function Layout({ children }: LayoutProps) {
                             </a>
                         </Link>
                     </div>
-                    {sidebarOpen && 
+                    {sidebarOpen && (
                         <nav className="flex-1 h-full space-y-2 px-2 py-2 sm:hidden">
                             <NavItems route={router.pathname} />
+                            <div className="flex flex-col items-end">
+                                <button
+                                    onClick={() =>
+                                        setTheme(
+                                            theme === "light" ? "dark" : "light"
+                                        )
+                                    }
+                                >
+                                    {(theme === "light" ? "Dark" : "Light") +
+                                        " mode"}
+                                </button>
+                            </div>
                         </nav>
-                    }
-                    <nav className="flex-1 h-full space-y-2 py-2 px-2 hidden sm:block">
+                    )}
+                    <nav className="flex flex-1 h-full space-y-2 py-2 px-2 hidden sm:block">
                         <NavItems route={router.pathname} />
+                        <div className="flex flex-col items-end">
+                            <button
+                                onClick={() =>
+                                    setTheme(
+                                        theme === "light" ? "dark" : "light"
+                                    )
+                                }
+                            >
+                                {(theme === "light" ? "Dark" : "Light") +
+                                    " mode"}
+                            </button>
+                        </div>
                     </nav>
                 </aside>
                 <main className="flex-row flex-1">
-                    <header className="h-16 bg-secondary-light z-50 p-4">
+                    <header className="h-16 bg-secondary-light dark:bg-secondary-light-inverted z-50 p-4">
                         <h2 className="font-bold text-2xl">
                             {getTitle(router.pathname)}
                         </h2>
                     </header>
                     <div className="flex-1 h-screen overflow-hidden -mt-12 pt-12">
-                        <div className="overflow-y-auto h-full bg-secondary-light p-4">
+                        <div className="overflow-y-auto h-full dark:bg-secondary-light-inverted bg-secondary-light p-4">
                             {children}
                         </div>
                     </div>

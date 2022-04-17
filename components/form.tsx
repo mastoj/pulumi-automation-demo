@@ -33,7 +33,7 @@ export const Input = (inputProps: InputProps) => {
     const props = {
         ...inputProps,
         className:
-            "shadow-sm focus:ring-brand-light focus:border-brand-light block w-full sm:text-sm border-primary-extra-light rounded-md",
+            "shadow-sm focus:ring-brand-light text-primary-neutral focus:border-brand-light block w-full sm:text-sm border-primary-extra-light rounded-md",
     };
     return (
         <FormField label={inputProps.label} id={inputProps.id}>
@@ -80,7 +80,7 @@ export const Combobox = ({label, options, value, onChange}: ComboxboxProps) => {
                 <HeadlessCombobox.Input
                     id="resourceGroup"
                     name="resourceGroup"
-                    className="w-full rounded-md border border-primary-extra-light bg-white py-2 pl-3 pr-10 shadow-sm focus:border-brand-light focus:outline-none focus:ring-1 focus:ring-brand-light sm:text-sm"
+                    className="w-full rounded-md border text-primary-neutral border-primary-extra-light bg-white py-2 pl-3 pr-10 shadow-sm focus:border-brand-light focus:outline-none focus:ring-1 focus:ring-brand-light sm:text-sm"
                     onChange={(event) => setQuery(event.target.value)}
                     displayValue={(option: Option) => option.label}
                 />
