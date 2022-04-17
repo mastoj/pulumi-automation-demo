@@ -1,14 +1,14 @@
 import { useContext, useState } from "react";
 import { Combobox, Input } from "../../components/form";
-import { ResourceGroupController } from "../resource-groups/ResourceGroupController";
+import { ResourceGroupService } from "../resource-groups/ResourceGroupService";
 
 export const NewRepositoryForm = () => {
     const [value, setValue] = useState("start value");
     const [resourceGroup, setResourceGroup] = useState<string | undefined>(undefined);
-    const resourceGroupController = useContext(ResourceGroupController);
+    const resourceGroupService = useContext(ResourceGroupService);
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        resourceGroupController.saveResourceGroup({
+        resourceGroupService.saveResourceGroup({
             name: value,
             stackName: value,
         });

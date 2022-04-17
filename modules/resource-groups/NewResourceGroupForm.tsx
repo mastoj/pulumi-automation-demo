@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { Input } from "../../components/form";
-import { ResourceGroupController } from "./ResourceGroupController";
+import { ResourceGroupService } from "./ResourceGroupService";
 
 export const NewResourceGroupForm = () => {
     const [value, setValue] = useState("start value");

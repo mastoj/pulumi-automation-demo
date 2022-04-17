@@ -1,15 +1,15 @@
 import { useContext } from "react";
 import { List } from "./List";
-import { ResourceController } from "./ResourceController";
+import { ResourceService } from "./ResourceService";
 
 export interface ResourcePageProps {
     typeNamePlural: string;
     createNewResource: React.ReactNode;
 }
 export const ResourcePage = ({ typeNamePlural, createNewResource }: ResourcePageProps) => {
-    const controller = useContext(ResourceController);
+    const resourceService = useContext(ResourceService);
     const handleDelete = async (stackName: string) => {
-        await controller.deleteResource(stackName);
+        await resourceService.deleteResource(stackName);
     };
     return(
         <div className="flex flex-col gap-2">

@@ -12,7 +12,7 @@ export const FormField = ({ label, id, children }: FormFieldProps) => {
         <div>
             <label
                 htmlFor={id}
-                className="block text-sm font-medium text-primary"
+                className="block text-sm font-medium text-primary dark:text-secondary"
             >
                 {label}
             </label>
@@ -73,7 +73,7 @@ export const Combobox = ({label, options, value, onChange}: ComboxboxProps) => {
             value={options.find(y => y.value === value)}
             onChange={(item: Option) => onChange(item.value)}
         >
-            <HeadlessCombobox.Label className="block text-sm font-medium text-primary">
+            <HeadlessCombobox.Label className="block text-sm font-medium text-primary dark:text-secondary">
                 {label}
             </HeadlessCombobox.Label>
             <div className="relative mt-1">

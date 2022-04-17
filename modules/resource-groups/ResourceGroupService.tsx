@@ -1,12 +1,12 @@
 import React from "react";
-import { ResourceController } from "../common/ResourceController";
+import { ResourceService } from "../common/ResourceService";
 import { ResourceGroupSpecification } from "./types";
 
-export interface ResourceGroupController extends ResourceController {
+export interface ResourceGroupService extends ResourceService {
     saveResourceGroup: (resourceGroup: ResourceGroupSpecification) => Promise<void>;
 };
 
-const controller: ResourceGroupController = {
+const controller: ResourceGroupService = {
     getResources: async () => {
         return [
             {
@@ -24,17 +24,17 @@ const controller: ResourceGroupController = {
     }
 };
 
-export const ResourceGroupController = React.createContext(controller);
+export const ResourceGroupService = React.createContext(controller);
 
 export interface ResourceGroupProviderProps {
     children: React.ReactNode;
 }
 export const ResourceGroupProvider = ({ children }: ResourceGroupProviderProps) => {
     return (
-        <ResourceController.Provider value={controller}>
-            <ResourceGroupController.Provider value={controller}>
+        <ResourceService.Provider value={controller}>
+            <ResourceGroupService.Provider value={controller}>
                 {children}
-            </ResourceGroupController.Provider>
-        </ResourceController.Provider>
+            </ResourceGroupService.Provider>
+        </ResourceService.Provider>
     )
 };

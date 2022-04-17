@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import { ResourcePage } from "../../modules/common/ResourcePage";
 import { NewResourceGroupForm } from "../../modules/resource-groups/NewResourceGroupForm";
-import { ResourceGroupController, ResourceGroupProvider } from "../../modules/resource-groups/ResourceGroupController";
+import { ResourceGroupService, ResourceGroupProvider } from "../../modules/resource-groups/ResourceGroupService";
 
 const Index: NextPage = () => {
     return (
