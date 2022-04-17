@@ -57,6 +57,30 @@ const NavItems = ({ route: actualRoute }: NavItemsProps) => {
     );
 };
 
+import { Switch } from "@headlessui/react";
+
+interface TogglerProps {
+    enabled: boolean;
+    setEnabled: (enabled: boolean) => void;
+}
+function Toggler({ enabled, setEnabled }: TogglerProps) {
+    return (
+        <Switch
+            checked={enabled}
+            onChange={setEnabled}
+            className={`${
+                enabled ? "bg-success" : "bg-primary-light"
+            } relative inline-flex items-center h-6 rounded-full w-11`}
+        >
+            <span
+                className={`${
+                    enabled ? "translate-x-6" : "translate-x-1"
+                } inline-block w-4 h-4 transform bg-white rounded-full`}
+            />
+        </Switch>
+    );
+}
+
 export interface LayoutProps {
     children: React.ReactNode;
 }
@@ -86,32 +110,36 @@ export default function Layout({ children }: LayoutProps) {
                         <nav className="flex-1 h-full space-y-2 px-2 py-2 sm:hidden">
                             <NavItems route={router.pathname} />
                             <div className="flex flex-col items-end">
-                                <button
-                                    onClick={() =>
-                                        setTheme(
-                                            theme === "light" ? "dark" : "light"
-                                        )
-                                    }
-                                >
-                                    {(theme === "light" ? "Dark" : "Light") +
-                                        " mode"}
-                                </button>
+                                <div className="flex flex-row gap-1">
+                                    <span>Light</span>
+                                    <Toggler
+                                        enabled={theme === "dark"}
+                                        setEnabled={(enabled) =>
+                                            enabled
+                                                ? setTheme("dark")
+                                                : setTheme("light")
+                                        }
+                                    />
+                                    <span>Dark</span>
+                                </div>
                             </div>
                         </nav>
                     )}
                     <nav className="flex flex-1 h-full space-y-2 py-2 px-2 hidden sm:block">
                         <NavItems route={router.pathname} />
                         <div className="flex flex-col items-end">
-                            <button
-                                onClick={() =>
-                                    setTheme(
-                                        theme === "light" ? "dark" : "light"
-                                    )
-                                }
-                            >
-                                {(theme === "light" ? "Dark" : "Light") +
-                                    " mode"}
-                            </button>
+                            <div className="flex flex-row gap-1">
+                                <span>Light</span>
+                                <Toggler
+                                    enabled={theme === "dark"}
+                                    setEnabled={(enabled) =>
+                                        enabled
+                                            ? setTheme("dark")
+                                            : setTheme("light")
+                                    }
+                                />
+                                <span>Dark</span>
+                            </div>
                         </div>
                     </nav>
                 </aside>
