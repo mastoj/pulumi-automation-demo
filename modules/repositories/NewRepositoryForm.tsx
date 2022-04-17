@@ -38,7 +38,7 @@ export const NewRepositoryForm = () => {
                 label="Resource group"
             />
             <div className="flex-1 flex justify-end items-end">
-                <button className="bg-green-500 rounded-md px-4 py-2 h-9">
+                <button className="bg-success rounded-md px-4 py-2 h-9">
                     Create
                 </button>
             </div>

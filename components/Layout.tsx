@@ -42,8 +42,8 @@ const NavItems = ({ route: actualRoute }: NavItemsProps) => {
                         className={classNames(
                             "flex py-2 px-2 rounded-md flex-row items-center gap-2",
                             route.route === actualRoute
-                                ? "bg-indigo-700"
-                                : "hover:bg-indigo-500"
+                                ? "bg-brand-dark"
+                                : "hover:bg-brand-light"
                         )}
                         href="#"
                     >
@@ -62,12 +62,11 @@ export interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const router = useRouter();
-    console.log("==> Router: ", router, sidebarOpen);
 
     return (
         <>
             <div className="flex-row sm:flex overflow-hidden h-screen">
-                <aside className="flex-row w-full sm:max-w-xs text-gray-100 bg-indigo-600">
+                <aside className="flex-row w-full sm:max-w-xs text-secondary-light bg-brand">
                     <div className="h-16 px-4 flex items-center gap-2">
                         <button
                             onClick={() => setSidebarOpen((s) => !s)}
@@ -91,13 +90,13 @@ export default function Layout({ children }: LayoutProps) {
                     </nav>
                 </aside>
                 <main className="flex-row flex-1">
-                    <header className="h-16 bg-gray-50 z-50 p-4">
+                    <header className="h-16 bg-secondary-light z-50 p-4">
                         <h2 className="font-bold text-2xl">
                             {getTitle(router.pathname)}
                         </h2>
                     </header>
                     <div className="flex-1 h-screen overflow-hidden -mt-12 pt-12">
-                        <div className="overflow-y-auto h-full bg-gray-200 p-4">
+                        <div className="overflow-y-auto h-full bg-secondary-light p-4">
                             {children}
                         </div>
                     </div>
