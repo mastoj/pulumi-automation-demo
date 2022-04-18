@@ -7,6 +7,7 @@ export interface ResourcePageProps {
     createNewResource: React.ReactNode;
     onDelete: (stackName: string) => Promise<void>;
     onSave: () => Promise<void>;
+    isSaving: boolean;
     resources: ResourceSummary[];
 }
 export const ResourcePage = ({
@@ -15,12 +16,13 @@ export const ResourcePage = ({
     resources,
     onDelete,
     onSave,
+    isSaving,
 }: ResourcePageProps) => {
     return (
         <div className="flex flex-col gap-2">
             <div className="flex flex-col">
                 <h2 className="text-xl font-bold">Create new</h2>
-                <NewResourceForm onSave={onSave}>
+                <NewResourceForm onSave={onSave} isSaving={isSaving}>
                     {createNewResource}
                 </NewResourceForm>
             </div>

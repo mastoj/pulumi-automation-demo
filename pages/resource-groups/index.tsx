@@ -14,6 +14,7 @@ const Index: NextPage = () => {
                 resources={resourceGroupController.resources}
                 onDelete={resourceGroupController.deleteResource}
                 onSave={resourceGroupController.saveResource}
+                isSaving={resourceGroupController.isSaving}
             />
         </ResourceGroupProvider>
     );

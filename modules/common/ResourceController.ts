@@ -11,6 +11,7 @@ export interface ResourceController<T extends Specification> {
     resources: ResourceSummary[];
     deleteResource: (stackName: string) => Promise<void>;
     resourcesAreLoading: boolean;
+    isSaving: boolean;
 }
 
 export function useResourceController<TSpec extends Specification>(
@@ -19,6 +20,7 @@ export function useResourceController<TSpec extends Specification>(
     resourceName: string
     ) {
         const [resource, setResource] = useState(defaultResource);
+        const [isSaving, setIsSaving] = useState(false);
         const queryClient = useQueryClient();
         const getResourcesQueryName = `get-${resourceName}`;
         const { isLoading, data: resourceGroups } = useQuery(
@@ -29,12 +31,14 @@ export function useResourceController<TSpec extends Specification>(
         );
         const saveResourceMutation = useMutation(
             (specification: TSpec) => {
+                setIsSaving(true);
                 return resourceService.saveResource(specification);
             },
             {
                 onSuccess: (data) => {
                     console.log("Saved: ", data);
                     setResource(defaultResource);
+                    setIsSaving(false);
                     queryClient.invalidateQueries(getResourcesQueryName);
                 },
             }
@@ -66,5 +70,6 @@ export function useResourceController<TSpec extends Specification>(
                 await saveResourceMutation.mutateAsync(resource);
                 setResource(defaultResource);
             },
+            isSaving: isSaving,
         } as ResourceController<TSpec>;    
 };

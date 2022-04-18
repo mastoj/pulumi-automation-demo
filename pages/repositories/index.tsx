@@ -21,6 +21,7 @@ const Index: NextPage = () => {
                 resources={repositoriesController.resources}
                 onDelete={repositoriesController.deleteResource}
                 onSave={repositoriesController.saveResource}
+                isSaving={repositoriesController.isSaving}
             />
         </RepositoryProvider>
     );

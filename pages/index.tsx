@@ -2,12 +2,14 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import Layout from "../components/Layout";
-import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
     return (
-        <div>
-            <h1 className="text-3xl font-bold underline">Hello world!</h1>
+        <div className="w-full h-full mx-auto flex justify-around items-center">
+            <h1 className="text-5xl font-bold mx-auto">
+                <span className="text-blue-600">Hello</span>
+                <span className="text-yellow-300"> PulumiUP!</span>
+            </h1>
         </div>
     );
 };
