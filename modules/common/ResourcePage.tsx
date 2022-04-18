@@ -6,14 +6,10 @@ import { ResourceService } from "./ResourceService";
 export interface ResourcePageProps {
     typeNamePlural: string;
     createNewResource: React.ReactNode;
+    onDelete: (stackName: string) => Promise<void>;
     resources: ResourceSummary[]
 }
-export const ResourcePage = ({ typeNamePlural, createNewResource, resources }: ResourcePageProps) => {
-    const resourceService = useContext(ResourceService);
-    const handleDelete = async (stackName: string) => {
-        await resourceService.deleteResource(stackName);
-    };
-    console.log("ResourcePage: ", { typeNamePlural, createNewResource, resources });
+export const ResourcePage = ({ typeNamePlural, createNewResource, resources, onDelete }: ResourcePageProps) => {
     return(
         <div className="flex flex-col gap-2">
             <div className="flex flex-col">
@@ -25,7 +21,7 @@ export const ResourcePage = ({ typeNamePlural, createNewResource, resources }: R
                 <div className="flex flex-col">
                     <List
                         items={resources}
-                        onDelete={handleDelete}
+                        onDelete={onDelete}
                     />
                 </div>
             </div>

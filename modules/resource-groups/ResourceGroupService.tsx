@@ -13,7 +13,8 @@ const controller: ResourceGroupService = {
         return response.data;
     },
     saveResourceGroup: async (resourceGroup: ResourceGroupSpecification) => {
-        console.log("Saving: ", resourceGroup);
+        const response = await axios.post("/api/resource-groups", resourceGroup);
+        return response.data;
     },
     deleteResource: async (stackName: string) => {
         console.log("Deleting: ", stackName);

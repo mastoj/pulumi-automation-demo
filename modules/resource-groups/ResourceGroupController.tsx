@@ -1,19 +1,54 @@
-import { useState } from "react";
-import { useQuery } from "react-query";
+import { useContext, useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { ResourceGroupService } from "./ResourceGroupService";
-import { ResourceSummary } from "./types";
+import { ResourceGroupSpecification, ResourceSummary } from "./types";
 
 export interface ResourceGroupController {
-    resourceGroups: ResourceSummary[];
+    resource: ResourceGroupSpecification;
+    setResource: (resource: ResourceGroupSpecification) => void;
+    saveResource: () => Promise<void>;
+    resources: ResourceSummary[];
+    deleteResource: (stackName: string) => Promise<void>;
     resourceGroupsIsLoading: boolean;
 }
 
-export const useResourceGroupController = (resourceGroupService: ResourceGroupService) => {
-    const {isLoading, data: resourceGroups} = useQuery('get-resourceGroups', () => {
-        return resourceGroupService.getResources();
-    });
+const defaultResource: ResourceGroupSpecification = {
+    name: "",
+    stackName: "",
+};
+
+export const useResourceGroupController = () => {
+    const [resource, setResource] = useState(defaultResource);
+    const resourceGroupService = useContext(ResourceGroupService);
+    const queryClient = useQueryClient();
+    const { isLoading, data: resourceGroups } = useQuery(
+        "get-resourceGroups",
+        () => {
+            return resourceGroupService.getResources();
+        }
+    );
+    const saveResourceMutation = useMutation(
+        (specification: ResourceGroupSpecification) => {
+            return resourceGroupService.saveResourceGroup(specification);
+        },
+        {
+            onSuccess: (data) => {
+                console.log("Saved: ", data);
+                setResource(defaultResource);
+                queryClient.invalidateQueries("get-resourceGroups");
+            },
+        }
+    );
     return {
-        resourceGroups: resourceGroups || [],
-        resourceGroupsIsLoading: isLoading
-    } as ResourceGroupController; 
-}
+        resource,
+        setResource,
+        resources: resourceGroups || [],
+        resourceGroupsIsLoading: isLoading,
+        deleteResource: resourceGroupService.deleteResource,
+        saveResource: async (evt: React.FormEvent<HTMLFormElement>) => {
+            evt.preventDefault();
+            await saveResourceMutation.mutateAsync(resource);
+            setResource(defaultResource);
+        },
+    } as ResourceGroupController;
+};

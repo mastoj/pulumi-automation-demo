@@ -1,28 +1,24 @@
 import { useContext, useState } from "react";
 import { Input } from "../../components/form";
+import { ResourceGroupController } from "./ResourceGroupController";
 import { ResourceGroupService } from "./ResourceGroupService";
+import { ResourceGroupSpecification } from "./types";
 
-export const NewResourceGroupForm = () => {
-    const [value, setValue] = useState("start value");
-    const resourceGroupService = useContext(ResourceGroupService);
+export interface NewResourceGroupFormProps {
+    controller: ResourceGroupController;
+}
 
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        resourceGroupService.saveResourceGroup({
-            name: value,
-            stackName: value,
-        });
-    }
+export const NewResourceGroupForm = ({controller: {setResource, resource, saveResource}}: NewResourceGroupFormProps) => {
     return (
         <form 
             className="flex flex-col md:flex-row gap-2"
-            onSubmit={handleSubmit}>
+            onSubmit={saveResource}>
             <Input
                 type="text"
                 onChange={(e) => {
-                    return setValue(e.target.value);
+                    return setResource({stackName: e.target.value, name: e.target.value});
                 }}
-                value={value}
+                value={resource.name}
                 label="Resource group name"
                 id="resourceGroup"
                 name="resourceGroup"
