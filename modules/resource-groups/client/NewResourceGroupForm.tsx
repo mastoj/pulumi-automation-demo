@@ -1,4 +1,4 @@
-import { Input } from "../../components/form";
+import { Input } from "../../../components/form";
 import { ResourceGroupController } from "./ResourceGroupController";
 
 export const NewResourceGroupForm = ({setResource, resource}: ResourceGroupController) => {

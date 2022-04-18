@@ -10,6 +10,10 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.5.0",
+    "@pulumi/azure-native": "^1.62.0",
+    "@pulumi/azuread": "^5.19.0",
+    "@pulumi/pulumi": "^3.29.1",
+    "@pulumi/random": "^4.4.2",
     "@tailwindcss/forms": "^0.5.0",
     "axios": "^0.26.1",
     "next": "12.1.5",

@@ -1,0 +1,30 @@
+### Get resource groups
+GET http://localhost:3000/api/resource-groups
+
+### Create resource group
+POST http://localhost:3000/api/resource-groups
+
+{
+    "name": "my-rg",
+    "stackName": "my-stack",
+}
+
+### Delete resource group
+DELETE http://localhost:3000/api/resource-groups/some-stack
+
+### Get repositories
+
+GET http://localhost:3000/api/repositories
+
+### Create repositories
+POST http://localhost:3000/api/repositories
+
+
+{
+    "name": "my-repo",
+    "stackName": "my-repo",
+    "resourceGroupStack": "my-stack",
+}
+
+### Delete repositories
+DELETE http://localhost:3000/api/repositories/some-stack

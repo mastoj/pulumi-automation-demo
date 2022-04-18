@@ -1,6 +1,6 @@
 import React from "react";
 import { createService, ResourceService } from "../common/ResourceService";
-import { RepositorySpecification } from "./types";
+import { RepositorySpecification } from "./common/types";
 
 export interface RepositoryService extends ResourceService<RepositorySpecification> {};
 

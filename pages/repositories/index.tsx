@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import { ResourcePage } from "../../modules/common/ResourcePage";
-import { NewRepositoryForm } from "../../modules/repositories/NewRepositoryForm";
+import { NewRepositoryForm } from "../../modules/repositories/client/NewRepositoryForm";
 import { useRepositoryController } from "../../modules/repositories/RepositoryController";
 import { RepositoryProvider } from "../../modules/repositories/RepositoryService";
 import { useResourceGroupController } from "../../modules/resource-groups/ResourceGroupController";

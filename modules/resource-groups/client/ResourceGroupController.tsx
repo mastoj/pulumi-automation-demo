@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { ResourceController, useResourceController } from "../common/ResourceController";
 import { ResourceGroupService } from "./ResourceGroupService";
-import { ResourceGroupSpecification } from "./types";
+import { ResourceGroupSpecification } from "./common/types";
 
 export interface ResourceGroupController extends ResourceController<ResourceGroupSpecification> {};
 

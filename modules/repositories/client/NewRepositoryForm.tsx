@@ -1,10 +1,10 @@
 import { useContext, useState } from "react";
-import { Combobox, Input } from "../../components/form";
-import { ResourceSummary } from "../common/types";
-import { ResourceGroupController } from "../resource-groups/ResourceGroupController";
-import { ResourceGroupService } from "../resource-groups/ResourceGroupService";
+import { Combobox, Input } from "../../../components/form";
+import { ResourceSummary } from "../../common/types";
+import { ResourceGroupController } from "../../resource-groups/ResourceGroupController";
+import { ResourceGroupService } from "../../resource-groups/ResourceGroupService";
 import { RepositoryController } from "./RepositoryController";
-import { RepositorySpecification } from "./types";
+import { RepositorySpecification } from "../common/types";
 
 export interface NewRepositoryFormProps {
     setValue: (key: string, value: any) => void;

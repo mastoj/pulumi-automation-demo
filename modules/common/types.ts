@@ -1,6 +1,6 @@
 export interface ResourceSummary {
     stackName: string;
-    resourceCount: number;
+    resourceCount?: number;
 }
 
 export interface Specification {

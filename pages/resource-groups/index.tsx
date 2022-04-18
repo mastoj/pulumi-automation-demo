@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import { ResourcePage } from "../../modules/common/ResourcePage";
-import { NewResourceGroupForm } from "../../modules/resource-groups/NewResourceGroupForm";
+import { NewResourceGroupForm } from "../../modules/resource-groups/client/NewResourceGroupForm";
 import { useResourceGroupController } from "../../modules/resource-groups/ResourceGroupController";
 import { ResourceGroupProvider } from "../../modules/resource-groups/ResourceGroupService";
 
