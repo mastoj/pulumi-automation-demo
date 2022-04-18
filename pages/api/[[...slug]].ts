@@ -17,7 +17,7 @@ function createResourceHandler<TSpec extends Specification>(
 ): ResourceHandler<TSpec> {
     const saveResource = async (spec: TSpec) => {
         try {
-            console.info("==> Creating: ", spec);
+            console.info("==> Creating: ", spec.stackName, spec);
             const stack = await LocalWorkspace.createOrSelectStack({
                 stackName: spec.stackName,
                 projectName: projectName,
@@ -88,15 +88,17 @@ const resourceHandlerMap: { [key: string]: any } = {
 const createHandler = async (req: NextApiRequest, res: NextApiResponse) => {
         if (req.method === "POST") {
             const { slug } = req.query;
-            const route = slug as string;
+            const [route] = slug as string[];
+            console.log("==> POST: ", route);
             const resourceHandler = resourceHandlerMap[route];
-            const spec = req.body;
+            const spec = JSON.parse(req.body);
             await resourceHandler.saveResource(spec);
             res.status(200).json(spec);
         }
         else if(req.method === "GET") {
             const { slug } = req.query;
-            const route = slug as string;
+            const [route] = slug as string[];
+            console.log("==> GET: ", route);
             const resourceHandler = resourceHandlerMap[route];
             const resources = await resourceHandler.getResources();
             res.status(200).json(resources);
@@ -104,6 +106,7 @@ const createHandler = async (req: NextApiRequest, res: NextApiResponse) => {
         else if(req.method === "DELETE") {
             const { slug } = req.query;
             const [route, stack] = slug as string[];
+            console.log("==> DELETE: ", route, stack);
             const resourceHandler = resourceHandlerMap[route];
             const resources = await resourceHandler.deleteResource(stack);
             res.status(200).json(resources);

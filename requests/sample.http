@@ -6,11 +6,11 @@ POST http://localhost:3000/api/resource-groups
 
 {
     "name": "my-rg",
-    "stackName": "my-stack",
+    "stackName": "my-rg"
 }
 
 ### Delete resource group
-DELETE http://localhost:3000/api/resource-groups/some-stack
+DELETE http://localhost:3000/api/resource-groups/my-rg
 
 ### Get repositories
 
