@@ -1,22 +1,66 @@
 import { useContext, useState } from "react";
 import { Combobox, Input } from "../../components/form";
+import { ResourceSummary } from "../common/types";
+import { ResourceGroupController } from "../resource-groups/ResourceGroupController";
 import { ResourceGroupService } from "../resource-groups/ResourceGroupService";
+import { RepositoryController } from "./RepositoryController";
+import { RepositorySpecification } from "./types";
 
-export const NewRepositoryForm = () => {
+export interface NewRepositoryFormProps {
+    setValue: (key: string, value: any) => void;
+    resource: RepositorySpecification,
+    resourceGroups: ResourceSummary[]
+};
+export const NewRepositoryForm = (
+    { setValue, resource, resourceGroups }: NewRepositoryFormProps
+) => {
+    const options = resourceGroups.map(resourceGroup => ({
+        value: resourceGroup.stackName,
+        label: resourceGroup.stackName,
+    }));
+    return (
+        <>
+            <Input
+                type="text"
+                onChange={(e) => {
+                    return setValue("name", e.target.value);
+                }}
+                value={resource.name}
+                label="Repository name"
+                id="repositoryName"
+                name="repositoryName"
+                placeholder="pulumi-up-demo"
+            />
+            <Combobox
+                options={options}
+                value={resource.resourceGroupStack}
+                onChange={(value: string) =>
+                    setValue("resourceGroupStack", value)
+                }
+                label="Resource group"
+            />
+        </>
+    );
+};
+
+export const NewRepositoryForm2 = () => {
     const [value, setValue] = useState("start value");
-    const [resourceGroup, setResourceGroup] = useState<string | undefined>(undefined);
+    const [resourceGroup, setResourceGroup] = useState<string | undefined>(
+        undefined
+    );
     const resourceGroupService = useContext(ResourceGroupService);
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        resourceGroupService.saveResourceGroup({
+        resourceGroupService.saveResource({
             name: value,
             stackName: value,
         });
-    }
+    };
     return (
-        <form 
+        <form
             className="flex flex-col md:flex-row gap-2"
-            onSubmit={handleSubmit}>
+            onSubmit={handleSubmit}
+        >
             <Input
                 type="text"
                 onChange={(e) => {
@@ -28,10 +72,10 @@ export const NewRepositoryForm = () => {
                 name="repositoryName"
                 placeholder="pulumi-up-demo"
             />
-            <Combobox 
+            <Combobox
                 options={[
-                    {value: "hello", label: "hello label"},
-                    {value: "yolo", label: "yolo label"}
+                    { value: "hello", label: "hello label" },
+                    { value: "yolo", label: "yolo label" },
                 ]}
                 value={resourceGroup}
                 onChange={(value: string) => setResourceGroup(value)}

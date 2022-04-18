@@ -1,11 +1,4 @@
-export interface ResourceSummary {
-    stackName: string;
-    resourceCount: number;
-}
-
-export interface Specification {
-    stackName: string;
-}
+import { Specification } from "../common/types";
 
 export interface ResourceGroupSpecification extends Specification {
     name: string;

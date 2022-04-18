@@ -52,16 +52,18 @@ export interface ComboxboxProps {
     label: string;
     options: Option[];
     value?: string;
+    defaultLabel?: string;
     onChange: (value: string) => void;
 }
 
 export const Combobox = ({label, options, value, onChange}: ComboxboxProps) => {
     const [query, setQuery] = useState("");
-
+    const [defaultOption] = useState({ label: "Select option", value: "" });
+    const optionsWithDefault = [defaultOption, ...options];
     const filteredOptions =
         query === ""
-            ? options
-            : options.filter((option) => {
+            ? optionsWithDefault
+            : optionsWithDefault.filter((option) => {
                   return option.value
                       .toLowerCase()
                       .includes(query.toLowerCase());
@@ -70,7 +72,7 @@ export const Combobox = ({label, options, value, onChange}: ComboxboxProps) => {
     return (
         <HeadlessCombobox
             as="div"
-            value={options.find(y => y.value === value)}
+            value={optionsWithDefault.find(y => y.value === value)}
             onChange={(item: Option) => onChange(item.value)}
         >
             <HeadlessCombobox.Label className="block text-sm font-medium text-primary dark:text-secondary">

@@ -10,9 +10,10 @@ const Index: NextPage = () => {
         <ResourceGroupProvider>
             <ResourcePage 
                 typeNamePlural="resource groups" 
-                createNewResource={<NewResourceGroupForm controller={resourceGroupController}/>}
+                createNewResource={<NewResourceGroupForm {...resourceGroupController}/>}
                 resources={resourceGroupController.resources}
                 onDelete={resourceGroupController.deleteResource}
+                onSave={resourceGroupController.saveResource}
             />
         </ResourceGroupProvider>
     );

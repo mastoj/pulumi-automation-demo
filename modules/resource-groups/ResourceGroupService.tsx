@@ -1,37 +1,21 @@
 import React from "react";
-import { ResourceService } from "../common/ResourceService";
+import { createService, ResourceService } from "../common/ResourceService";
 import { ResourceGroupSpecification } from "./types";
-import axios from "axios";
 
-export interface ResourceGroupService extends ResourceService {
-    saveResourceGroup: (resourceGroup: ResourceGroupSpecification) => Promise<void>;
-};
+export interface ResourceGroupService extends ResourceService<ResourceGroupSpecification> {};
 
-const controller: ResourceGroupService = {
-    getResources: async () => {
-        const response = await axios.get("/api/resource-groups");
-        return response.data;
-    },
-    saveResourceGroup: async (resourceGroup: ResourceGroupSpecification) => {
-        const response = await axios.post("/api/resource-groups", resourceGroup);
-        return response.data;
-    },
-    deleteResource: async (stackName: string) => {
-        console.log("Deleting: ", stackName);
-    }
-};
+const controller: ResourceGroupService = createService<ResourceGroupSpecification>("resource-groups");
 
 export const ResourceGroupService = React.createContext(controller);
 
 export interface ResourceGroupProviderProps {
     children: React.ReactNode;
-}
+};
+
 export const ResourceGroupProvider = ({ children }: ResourceGroupProviderProps) => {
     return (
-        <ResourceService.Provider value={controller}>
-            <ResourceGroupService.Provider value={controller}>
-                {children}
-            </ResourceGroupService.Provider>
-        </ResourceService.Provider>
-    )
+        <ResourceGroupService.Provider value={controller}>
+            {children}
+        </ResourceGroupService.Provider>
+    );
 };

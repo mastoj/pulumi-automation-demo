@@ -1,5 +1,5 @@
 import { HiTrash } from "react-icons/hi";
-import { ResourceSummary } from "../resource-groups/types";
+import { ResourceSummary } from "../common/types";
 
 export interface ListProps {
     items: ResourceSummary[];
