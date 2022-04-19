@@ -4,7 +4,7 @@ import { RepositorySpecification } from "../common/types";
 
 export interface RepositoryService extends ResourceService<RepositorySpecification> {};
 
-const service: RepositoryService = createService<RepositorySpecification>("resource-groups");
+const service: RepositoryService = createService<RepositorySpecification>("repositories");
 
 export const RepositoryService = React.createContext(service);
 

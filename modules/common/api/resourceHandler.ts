@@ -9,15 +9,22 @@ export interface ResourceHandler<TSpec extends Specification> {
 
 export function createResourceHandler<TSpec extends Specification>(
     projectName: string,
-    program: (spec: TSpec) => PulumiFn
+    program: (spec: TSpec) => (() => Promise<Record<string, any>>)
 ): ResourceHandler<TSpec> {
     const saveResource = async (spec: TSpec) => {
+        const modifiedProgram = async () => {
+            const result = await program(spec);
+            return { 
+                ...result,
+                specification: spec 
+            };
+        };
         try {
             console.info("==> Creating: ", spec.stackName, spec);
             const stack = await LocalWorkspace.createOrSelectStack({
                 stackName: spec.stackName,
                 projectName: projectName,
-                program: program(spec),
+                program: modifiedProgram,
             });
             const result = await stack.up({ onOutput: console.info });
             console.info("==> Created: ", spec, result);
