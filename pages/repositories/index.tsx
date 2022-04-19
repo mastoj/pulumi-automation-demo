@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import { ResourcePage } from "../../modules/common/ResourcePage";
+import { ResourcePage } from "../../modules/common/client/ResourcePage";
 import { NewRepositoryForm } from "../../modules/repositories/client/NewRepositoryForm";
 import { useRepositoryController } from "../../modules/repositories/client/RepositoryController";
 import { RepositoryProvider } from "../../modules/repositories/client/RepositoryService";
@@ -22,6 +22,7 @@ const Index: NextPage = () => {
                 onDelete={repositoriesController.deleteResource}
                 onSave={repositoriesController.saveResource}
                 isSaving={repositoriesController.isSaving}
+                isDeleting={repositoriesController.isDeleting}
             />
         </RepositoryProvider>
     );

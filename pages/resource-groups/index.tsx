@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import { ResourcePage } from "../../modules/common/ResourcePage";
+import { ResourcePage } from "../../modules/common/client/ResourcePage";
 import { NewResourceGroupForm } from "../../modules/resource-groups/client/NewResourceGroupForm";
 import { useResourceGroupController } from "../../modules/resource-groups/client/ResourceGroupController";
 import { ResourceGroupProvider } from "../../modules/resource-groups/client/ResourceGroupService";
@@ -15,6 +15,7 @@ const Index: NextPage = () => {
                 onDelete={resourceGroupController.deleteResource}
                 onSave={resourceGroupController.saveResource}
                 isSaving={resourceGroupController.isSaving}
+                isDeleting={resourceGroupController.isDeleting}
             />
         </ResourceGroupProvider>
     );

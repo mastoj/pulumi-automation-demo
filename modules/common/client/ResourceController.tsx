@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { ResourceSummary, Specification } from "../common/types";
 import { ResourceService } from "./ResourceService";
 import toast from "react-hot-toast";
+import { Specification, ResourceSummary } from "../types";
+import { StackReferenceArgs } from "@pulumi/pulumi";
 
 const simpleToast = (bgColor: string) => (message: string) => {
     toast.custom((t) => {
@@ -36,6 +37,7 @@ export interface ResourceController<T extends Specification> {
     deleteResource: (stackName: string) => Promise<void>;
     resourcesAreLoading: boolean;
     isSaving: boolean;
+    isDeleting: { [stackName: string]: boolean };
 }
 
 export function useResourceController<TSpec extends Specification>(
@@ -45,12 +47,18 @@ export function useResourceController<TSpec extends Specification>(
 ) {
     const [resource, setResource] = useState(defaultResource);
     const [isSaving, setIsSaving] = useState(false);
+    const [isDeleting, setIsDeleting] = useState<{ [stackName: string]: boolean }>({});
+    const [resourceGroups, setResourceGroups] = useState<ResourceSummary[]>([]);
     const queryClient = useQueryClient();
     const getResourcesQueryName = `get-${resourceName}`;
-    const { isLoading, data: resourceGroups } = useQuery(
+    const { isLoading } = useQuery(
         getResourcesQueryName,
         () => {
             return resourceService.getResources();
+        }, {
+            onSuccess: (data) => {
+                setResourceGroups(data);
+            }
         }
     );
     const saveResourceMutation = useMutation(
@@ -90,18 +98,26 @@ export function useResourceController<TSpec extends Specification>(
         }
     };
     const handleDelete = async (stackName: string) => {
-        infoToast("Deleting...");
+        infoToast(`Deleting ${stackName}...`);
         try {
+            setIsDeleting((isDeleting) => ({...isDeleting, [stackName]: true}));
             await resourceService.deleteResource(stackName);
-            successToast("Deleted");
-            await queryClient.invalidateQueries(getResourcesQueryName);
+            successToast(`Deleted ${stackName}`);
+            setResourceGroups((resources) => [...resources.filter((r) => r.stackName !== stackName)]);
         }
         catch (e)
         {
             console.log("Delete error: ", e);
-            errorToast("Error deleting resource");
+            errorToast(`Error deleting ${stackName}`);
+        }
+        finally {
+            setIsDeleting((isDeleting) => ({
+                ...isDeleting,
+                [stackName]: false,
+            }));
         }
     };
+
     return {
         resource,
         setResource,
@@ -109,6 +125,7 @@ export function useResourceController<TSpec extends Specification>(
         resources: resourceGroups || [],
         resourcesAreLoading: isLoading,
         deleteResource: handleDelete,
+        isDeleting: isDeleting,
         saveResource: async (evt: React.FormEvent<HTMLFormElement>) => {
             evt.preventDefault();
             await saveResourceMutation.mutateAsync(resource);

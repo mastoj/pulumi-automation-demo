@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { ResourceController, useResourceController } from "../../common/ResourceController";
+import { ResourceController, useResourceController } from "../../common/client/ResourceController";
 import { ResourceGroupSpecification } from "../common/types";
 import { ResourceGroupService } from "./ResourceGroupService";
 

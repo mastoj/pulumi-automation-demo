@@ -1,12 +1,12 @@
 import React from "react";
-import { createService, ResourceService } from "../../common/ResourceService";
+import { ResourceService, createService } from "../../common/client/ResourceService";
 import { ResourceGroupSpecification } from "../common/types";
 
 export interface ResourceGroupService extends ResourceService<ResourceGroupSpecification> {};
 
-const controller: ResourceGroupService = createService<ResourceGroupSpecification>("resource-groups");
+const service: ResourceGroupService = createService<ResourceGroupSpecification>("resource-groups");
 
-export const ResourceGroupService = React.createContext(controller);
+export const ResourceGroupService = React.createContext(service);
 
 export interface ResourceGroupProviderProps {
     children: React.ReactNode;
@@ -14,7 +14,7 @@ export interface ResourceGroupProviderProps {
 
 export const ResourceGroupProvider = ({ children }: ResourceGroupProviderProps) => {
     return (
-        <ResourceGroupService.Provider value={controller}>
+        <ResourceGroupService.Provider value={service}>
             {children}
         </ResourceGroupService.Provider>
     );

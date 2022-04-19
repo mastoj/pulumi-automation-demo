@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ResourceSummary, Specification } from "./types";
+import { Specification, ResourceSummary } from "../types";
 
 export interface ResourceService<T extends Specification> {
     getResources: () => Promise<ResourceSummary[]>;

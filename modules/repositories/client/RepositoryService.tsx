@@ -1,12 +1,12 @@
 import React from "react";
-import { ResourceService, createService } from "../../common/ResourceService";
+import { createService, ResourceService } from "../../common/client/ResourceService";
 import { RepositorySpecification } from "../common/types";
 
 export interface RepositoryService extends ResourceService<RepositorySpecification> {};
 
-const controller: RepositoryService = createService<RepositorySpecification>("resource-groups");
+const service: RepositoryService = createService<RepositorySpecification>("resource-groups");
 
-export const RepositoryService = React.createContext(controller);
+export const RepositoryService = React.createContext(service);
 
 export interface RepositoryProviderProps {
     children: React.ReactNode;
@@ -14,7 +14,7 @@ export interface RepositoryProviderProps {
 
 export const RepositoryProvider = ({ children }: RepositoryProviderProps) => {
     return (
-        <RepositoryService.Provider value={controller}>
+        <RepositoryService.Provider value={service}>
             {children}
         </RepositoryService.Provider>
     );
