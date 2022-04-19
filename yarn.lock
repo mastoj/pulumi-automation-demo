@@ -223,6 +223,13 @@
   dependencies:
     "@pulumi/pulumi" "^3.0.0"
 
+"@pulumi/github@^4.11.0":
+  version "4.11.0"
+  resolved "https://registry.yarnpkg.com/@pulumi/github/-/github-4.11.0.tgz#f80a4f875646f9937ec42aa9b032d36ca8270d48"
+  integrity sha512-NYi0zxiCbQ1FS1L1OjxmYmtXj/2/zVLI1qA9oI7XPFC4MyLz/w0gfT+V7ar+tQyWxrTCxLKv+y4TfpLywc3E2A==
+  dependencies:
+    "@pulumi/pulumi" "^3.0.0"
+
 "@pulumi/pulumi@^3.0.0", "@pulumi/pulumi@^3.29.1":
   version "3.29.1"
   resolved "https://registry.yarnpkg.com/@pulumi/pulumi/-/pulumi-3.29.1.tgz#25059f32694ae0e6e86bffc09e76a0b118c41f32"

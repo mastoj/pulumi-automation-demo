@@ -7,12 +7,17 @@ export interface ResourceHandler<TSpec extends Specification> {
     getResources: () => Promise<ResourceSummary[]>;
 }
 
+export interface Program<TSpec extends Specification> {
+    (spec: TSpec): Promise<Record<string, any>>
+}
+
 export function createResourceHandler<TSpec extends Specification>(
     projectName: string,
-    program: (spec: TSpec) => (() => Promise<Record<string, any>>)
+    program: Program<TSpec>
 ): ResourceHandler<TSpec> {
     const saveResource = async (spec: TSpec) => {
         const modifiedProgram = async () => {
+            console.log("Running program for: ", spec);
             const result = await program(spec);
             return { 
                 ...result,
