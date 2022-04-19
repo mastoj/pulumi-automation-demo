@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import { ResourceController, useResourceController } from "../common/ResourceController";
+import { ResourceController, useResourceController } from "../../common/ResourceController";
+import { RepositorySpecification } from "../common/types";
 import { RepositoryService } from "./RepositoryService";
-import { RepositorySpecification } from "./common/types";
 
 export interface RepositoryController extends ResourceController<RepositorySpecification> {};
 

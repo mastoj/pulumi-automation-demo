@@ -4,6 +4,7 @@ import { ResourceSummary, Specification } from "../../modules/common/types";
 import { RepositorySpecification } from "../../modules/repositories/common/types";
 import { ResourceGroupSpecification } from "../../modules/resource-groups/common/types";
 import { LocalWorkspace, PulumiFn } from "@pulumi/pulumi/automation";
+import { ResourceGroup } from "@pulumi/azure-native/resources";
 
 interface ResourceHandler<TSpec extends Specification> {
     saveResource: (spec: TSpec) => Promise<void>;
@@ -24,7 +25,7 @@ function createResourceHandler<TSpec extends Specification>(
                 program: program(spec),
             });
             const result = await stack.up({ onOutput: console.info });
-            console.info("==> Created: ", spec);
+            console.info("==> Created: ", spec, result);
         } catch (e) {
             console.error("==> Failed to create: ", JSON.stringify(spec), e);
             throw e;
@@ -52,7 +53,6 @@ function createResourceHandler<TSpec extends Specification>(
 
     const getResources = async () => {
         try {
-            console.log("==> List resources");
             const ws = await LocalWorkspace.create({ projectSettings: { name: projectName, runtime: "nodejs" }});
             const stacks = await ws.listStacks();
             const response = stacks.map<ResourceSummary>(s => (
@@ -76,6 +76,9 @@ const createRepository = (spec: RepositorySpecification) => {
 
 const createResourceGroup = (spec: ResourceGroupSpecification) => {
     return async () => {
+        const resourceGroup = new ResourceGroup(spec.name, {
+            location: "westeurope",
+        });
         console.log("Creating resource group: ", spec);
     };
 };
@@ -89,9 +92,8 @@ const createHandler = async (req: NextApiRequest, res: NextApiResponse) => {
         if (req.method === "POST") {
             const { slug } = req.query;
             const [route] = slug as string[];
-            console.log("==> POST: ", route);
             const resourceHandler = resourceHandlerMap[route];
-            const spec = JSON.parse(req.body);
+            const spec = req.body;
             await resourceHandler.saveResource(spec);
             res.status(200).json(spec);
         }

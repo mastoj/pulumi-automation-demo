@@ -12,7 +12,7 @@ export const NewResourceGroupForm = ({setResource, resource}: ResourceGroupContr
             label="Resource group name"
             id="resourceGroup"
             name="resourceGroup"
-            placeholder="pulumi-up-demo"
+            placeholder="Enter resource group name"
         />
     );
 };

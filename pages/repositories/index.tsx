@@ -1,9 +1,9 @@
 import { NextPage } from "next";
 import { ResourcePage } from "../../modules/common/ResourcePage";
 import { NewRepositoryForm } from "../../modules/repositories/client/NewRepositoryForm";
-import { useRepositoryController } from "../../modules/repositories/RepositoryController";
-import { RepositoryProvider } from "../../modules/repositories/RepositoryService";
-import { useResourceGroupController } from "../../modules/resource-groups/ResourceGroupController";
+import { useRepositoryController } from "../../modules/repositories/client/RepositoryController";
+import { RepositoryProvider } from "../../modules/repositories/client/RepositoryService";
+import { useResourceGroupController } from "../../modules/resource-groups/client/ResourceGroupController";
 
 const Index: NextPage = () => {
     const repositoriesController = useRepositoryController();

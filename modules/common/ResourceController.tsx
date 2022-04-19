@@ -23,8 +23,9 @@ const simpleToast = (bgColor: string) => (message: string) => {
     });
 };
 
-const savingToast = () => simpleToast("bg-blue-600")("Saving...");
+const infoToast = (message: string) => simpleToast("bg-blue-600")(message);
 const successToast = (message: string) => simpleToast("bg-green-600")(message);
+const errorToast = (message: string) => simpleToast("bg-red-600")(message);
 
 export interface ResourceController<T extends Specification> {
     resource: T;
@@ -54,18 +55,24 @@ export function useResourceController<TSpec extends Specification>(
     );
     const saveResourceMutation = useMutation(
         (specification: TSpec) => {
-            savingToast();
+            infoToast("Saving...");
             setIsSaving(true);
             return resourceService.saveResource(specification);
         },
         {
-            onSuccess: (data) => {
+            onSuccess: async (data) => {
                 console.log("Saved: ", data);
                 setResource(defaultResource);
-                setIsSaving(false);
-                queryClient.invalidateQueries(getResourcesQueryName);
+                await queryClient.invalidateQueries(getResourcesQueryName);
                 successToast("Saved!")
             },
+            onError: (error) => {
+                console.log("Error: ", error);
+                errorToast("Error saving resource");
+            },
+            onSettled: () => {
+                setIsSaving(false);
+            }
         }
     );
     const setValue = (key: string, value: any) => {
@@ -82,13 +89,26 @@ export function useResourceController<TSpec extends Specification>(
             }));
         }
     };
+    const handleDelete = async (stackName: string) => {
+        infoToast("Deleting...");
+        try {
+            await resourceService.deleteResource(stackName);
+            successToast("Deleted");
+            await queryClient.invalidateQueries(getResourcesQueryName);
+        }
+        catch (e)
+        {
+            console.log("Delete error: ", e);
+            errorToast("Error deleting resource");
+        }
+    };
     return {
         resource,
         setResource,
         setValue,
         resources: resourceGroups || [],
         resourcesAreLoading: isLoading,
-        deleteResource: resourceService.deleteResource,
+        deleteResource: handleDelete,
         saveResource: async (evt: React.FormEvent<HTMLFormElement>) => {
             evt.preventDefault();
             await saveResourceMutation.mutateAsync(resource);

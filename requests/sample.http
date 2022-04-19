@@ -3,6 +3,7 @@ GET http://localhost:3000/api/resource-groups
 
 ### Create resource group
 POST http://localhost:3000/api/resource-groups
+Content-Type: application/json
 
 {
     "name": "my-rg",
@@ -18,7 +19,7 @@ GET http://localhost:3000/api/repositories
 
 ### Create repositories
 POST http://localhost:3000/api/repositories
-
+Content-Type: application/json
 
 {
     "name": "my-repo",

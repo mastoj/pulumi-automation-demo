@@ -1,9 +1,7 @@
 import { useContext, useState } from "react";
 import { Combobox, Input } from "../../../components/form";
 import { ResourceSummary } from "../../common/types";
-import { ResourceGroupController } from "../../resource-groups/ResourceGroupController";
-import { ResourceGroupService } from "../../resource-groups/ResourceGroupService";
-import { RepositoryController } from "./RepositoryController";
+import { ResourceGroupService } from "../../resource-groups/client/ResourceGroupService";
 import { RepositorySpecification } from "../common/types";
 
 export interface NewRepositoryFormProps {
@@ -29,7 +27,7 @@ export const NewRepositoryForm = (
                 label="Repository name"
                 id="repositoryName"
                 name="repositoryName"
-                placeholder="pulumi-up-demo"
+                placeholder="Enter repository name"
             />
             <Combobox
                 options={options}
@@ -70,7 +68,7 @@ export const NewRepositoryForm2 = () => {
                 label="Repository name"
                 id="repositoryName"
                 name="repositoryName"
-                placeholder="pulumi-up-demo"
+                placeholder="Enter repository name"
             />
             <Combobox
                 options={[
