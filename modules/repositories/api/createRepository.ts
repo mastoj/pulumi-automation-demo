@@ -11,6 +11,7 @@ export const createRepository = async (spec: RepositorySpecification) => {
     const clientSecret = await resourceGroupStackRef.requireOutput("clientSecret");
     const resourceGroupName = await resourceGroupStackRef.requireOutput("resourceGroupName");
     const subscriptionId = await resourceGroupStackRef.requireOutput("subscriptionId");
+    const tenantId = await resourceGroupStackRef.requireOutput("tenantId");
 
     const repository = new Repository(spec.name, {
         name: spec.name
@@ -19,21 +20,25 @@ export const createRepository = async (spec: RepositorySpecification) => {
     const createSecretName = (name: string) => name.toUpperCase().replaceAll("-", "_");
     const secretName = createSecretName(`RG_${spec.resourceGroupStack}`);
     const secretString =
-        pulumi.all([clientId, clientSecret, resourceGroupName, subscriptionId])
-            .apply(([clientId, clientSecret, resourceGroupName, subscriptionId]) => { 
-                return JSON.stringify({
+        pulumi.all([clientId, clientSecret, resourceGroupName, subscriptionId, tenantId])
+            .apply(([clientId, clientSecret, resourceGroupName, subscriptionId, tenantId]) => { 
+                const secret = {
                     clientId: clientId,
                     clientSecret: clientSecret,
                     resourceGroupName: resourceGroupName,
                     subscriptionId: subscriptionId,
-                })
+                    tenantId: tenantId,
+                };
+                return JSON.stringify(secret)
             });
 
-    const resourceGroupSecret = new ActionsSecret(`${spec.name}-secret`, {
+    const resourceGroupSecret = new ActionsSecret(`${spec.name}-action-secret`, {
         secretName: secretName,
         plaintextValue: secretString,
         repository: repository.name,
-    })
+    }, {deleteBeforeReplace: true})
 
-    return {};
+    return {
+        azureConfig: pulumi.secret(secretString),
+    };
 };

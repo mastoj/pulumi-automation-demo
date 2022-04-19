@@ -8,7 +8,8 @@ import { Application, ServicePrincipal, ServicePrincipalPassword } from "@pulumi
 export const createResourceGroup = async (spec: ResourceGroupSpecification) => {
     console.log("Creating resource group: ", spec);
 
-    const subscriptionId = (await azure.authorization.getClientConfig()).subscriptionId;
+    const clientConfig = await azure.authorization.getClientConfig();
+    const subscriptionId = clientConfig.subscriptionId;
     const resourceGroup = new ResourceGroup(spec.name, {
         resourceGroupName: `pu-${spec.name}`,
         location: "westeurope",
@@ -39,6 +40,7 @@ export const createResourceGroup = async (spec: ResourceGroupSpecification) => {
         resourceGroupName: resourceGroup.name,
         clientId: adSp.applicationId,
         clientSecret: pulumi.secret(adSpPassword.value),
+        tenantId: clientConfig.tenantId,
         subscriptionId: subscriptionId,
     };
 };
