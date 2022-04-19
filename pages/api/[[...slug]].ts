@@ -5,6 +5,9 @@ import { RepositorySpecification } from "../../modules/repositories/common/types
 import { ResourceGroupSpecification } from "../../modules/resource-groups/common/types";
 import { LocalWorkspace, PulumiFn } from "@pulumi/pulumi/automation";
 import { ResourceGroup } from "@pulumi/azure-native/resources";
+import * as azure from "@pulumi/azure-native";
+import { RandomPassword } from "@pulumi/random";
+import { Application, ServicePrincipal, ServicePrincipalPassword } from "@pulumi/azuread";
 
 interface ResourceHandler<TSpec extends Specification> {
     saveResource: (spec: TSpec) => Promise<void>;
@@ -79,8 +82,18 @@ const createResourceGroup = (spec: ResourceGroupSpecification) => {
         const resourceGroup = new ResourceGroup(spec.name, {
             location: "westeurope",
         });
+        const password = new RandomPassword("password", {
+            length: 50,
+        });
+        const adApp = new Application("app", { displayName: resourceGroup.name });
+        const adSp = new ServicePrincipal("sp", { applicationId: adApp.applicationId });
+        const adSpPassword = new ServicePrincipalPassword("spPassword", {
+            servicePrincipalId: adSp.id,
+        });
+        
         console.log("Creating resource group: ", spec);
     };
+
 };
 
 const resourceHandlerMap: { [key: string]: any } = {
