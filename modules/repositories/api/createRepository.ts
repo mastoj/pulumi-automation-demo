@@ -17,7 +17,7 @@ export const createRepository = async (spec: RepositorySpecification) => {
         name: spec.name
     });
 
-    const createSecretName = (name: string) => name.toUpperCase().replaceAll("-", "_");
+    const createSecretName = (name: string) => name.toUpperCase().replace(/-/g, "_");
     const secretName = createSecretName(`RG_${spec.resourceGroupStack}`);
     const secretString =
         pulumi.all([clientId, clientSecret, resourceGroupName, subscriptionId, tenantId])

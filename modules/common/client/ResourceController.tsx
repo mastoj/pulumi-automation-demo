@@ -71,15 +71,14 @@ export function useResourceController<TSpec extends Specification>(
             onSuccess: async (data) => {
                 console.log("Saved: ", data);
                 setResource(defaultResource);
+                setIsSaving(false);
                 await queryClient.invalidateQueries(getResourcesQueryName);
                 successToast("Saved!")
             },
             onError: (error) => {
+                setIsSaving(false);
                 console.log("Error: ", error);
                 errorToast("Error saving resource");
-            },
-            onSettled: () => {
-                setIsSaving(false);
             }
         }
     );

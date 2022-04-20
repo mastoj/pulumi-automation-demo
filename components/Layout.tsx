@@ -91,7 +91,7 @@ export default function Layout({ children }: LayoutProps) {
 
     return (
         <>
-            <div className="flex-row sm:flex overflow-hidden h-screen">
+            <div className="flex-row sm:flex overflow-hidden h-screen bg-brand">
                 <aside className="flex-row w-full sm:max-w-xs text-secondary-light bg-brand">
                     <div className="h-16 px-4 flex items-center gap-2">
                         <button
@@ -143,14 +143,14 @@ export default function Layout({ children }: LayoutProps) {
                         </div>
                     </nav>
                 </aside>
-                <main className="flex-row flex-1">
-                    <header className="h-16 bg-secondary-light dark:bg-secondary-light-inverted z-50 p-4">
+                <main className="flex-row flex-1 max-w-7xl">
+                    <header className="h-16 bg-secondary-light dark:bg-primary-dark z-50 p-4">
                         <h2 className="font-bold text-2xl">
                             {getTitle(router.pathname)}
                         </h2>
                     </header>
                     <div className="flex-1 h-screen overflow-hidden -mt-12 pt-12">
-                        <div className="overflow-y-auto h-full dark:bg-secondary-light-inverted bg-secondary-light p-4">
+                        <div className="overflow-y-auto h-full dark:bg-primary-dark bg-secondary-light p-4">
                             {children}
                         </div>
                     </div>
