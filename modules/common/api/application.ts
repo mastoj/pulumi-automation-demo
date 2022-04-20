@@ -11,7 +11,7 @@ export interface Application {
 
 export const createApplication = (): Application => {
     const resourceHandlerMap: { [key: string]: any } = {
-        repositories: createResourceHandler("pu-repositories", createRepository),
+        "repositories": createResourceHandler("pu-repositories", createRepository),
         "resource-groups": createResourceHandler("pu-resourceGroups", createResourceGroup),
     };
     
