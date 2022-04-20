@@ -8,16 +8,14 @@ import { useResourceGroupController } from "../../modules/resource-groups/client
 const Index: NextPage = () => {
     const repositoriesController = useRepositoryController();
     const resourceGroupController = useResourceGroupController();
+    const formController = {...repositoriesController, resourceGroups: resourceGroupController.resources};
     return (
         <RepositoryProvider>
             <ResourcePage 
                 typeNamePlural="repositories" 
                 createNewResource={
-                    <NewRepositoryForm 
-                        setValue={repositoriesController.setValue}
-                        resource={repositoriesController.resource}
-                        resourceGroups={resourceGroupController.resources}
-                    />}
+                    <NewRepositoryForm {...formController} />
+                }
                 resources={repositoriesController.resources}
                 onDelete={repositoriesController.deleteResource}
                 onSave={repositoriesController.saveResource}
