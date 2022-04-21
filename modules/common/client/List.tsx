@@ -15,7 +15,7 @@ export const List = ({ items, onDelete, isDeleting }: ListProps) => {
                 role="list"
                 className="divide-y divide-secondary dark:divide-primary"
             >
-                {items.map((application: any) => (
+                {items.map((application: ResourceSummary) => (
                     <li
                         key={application.stackName}
                         className={
@@ -24,7 +24,9 @@ export const List = ({ items, onDelete, isDeleting }: ListProps) => {
                                 : ""
                         }
                     >
-                        {/* <div className="block hover:bg-secondary-light dark:hover:bg-secondary-light-inverted"> */}
+                        {
+                        /* <div className="block hover:bg-secondary-light dark:hover:bg-secondary-light-inverted"> */
+                        }
                         <div className="block hover:bg-secondary-light dark:hover:bg-primary">
                             <div className="flex items-center px-4 py-4 sm:px-6">
                                 <div className="min-w-0 flex-1 flex items-center">
@@ -39,9 +41,13 @@ export const List = ({ items, onDelete, isDeleting }: ListProps) => {
                                                     {application.resourceCount}
                                                 </span>
                                             </p>
-                                            <p className="text-sm text-primary-dark dark:text-secondary-dark">
-                                                Updated {moment(application.lastUpdate).fromNow()}
-                                            </p>
+                                            {
+                                                application.lastUpdate && (
+                                                    <p className="text-sm text-primary-dark dark:text-secondary-dark">
+                                                        Updated {moment(application.lastUpdate).fromNow()}
+                                                    </p>
+                                                )
+                                            }
                                         </div>
                                     </div>
                                 </div>

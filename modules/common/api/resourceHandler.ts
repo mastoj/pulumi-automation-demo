@@ -32,7 +32,7 @@ export function createResourceHandler<TSpec extends Specification>(
                 program: modifiedProgram,
             });
             const result = await stack.up({ onOutput: console.info });
-            console.info("==> Created: ", spec, result);
+            console.info("==> Created: ", spec);
         } catch (e) {
             console.error("==> Failed to create: ", JSON.stringify(spec), e);
             throw e;

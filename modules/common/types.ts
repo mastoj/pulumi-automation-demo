@@ -1,7 +1,7 @@
 export interface ResourceSummary {
     stackName: string;
     resourceCount?: number;
-    lastUpdate?: Date;
+    lastUpdate?: string;
 }
 
 export interface Specification {
